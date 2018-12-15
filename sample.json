@@ -1,0 +1,27 @@
+{
+    "props" : {
+        "p1" : "Bandaid",
+	"p2" : "Cola",
+	"p3" : "Ammo",
+	"p4" : "Water",
+	"p5" : "Knife",
+	"p6" : "Baseball Bat",
+	"p7" : "Mace"
+    },
+    "backpack" : {
+        "slots" : 3,
+        "name" : "Small Backpack",
+	"items" : [
+            ["p1", {"quantity" : 10, "CanHeal" : "true", "CanHydrate" : "false", "CanKill" : "false"}],
+            ["p5", {"quantity" : 1, "CanHeal" : "false", "CanHydrate" : "false", "CanKill" : "true"}],
+            ["p7", {"quantity" : 1, "CanHeal" : "false", "CanHydrate" : "false", "CanKill" : "true"}]
+        ]
+    },
+    "player" : {
+        "name" : "zombieKilr",
+        "health" : 50,
+        "level" : 25,
+        "pos" : {"x" : 100, "y" : 200}
+    }
+}
+

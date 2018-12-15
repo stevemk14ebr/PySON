@@ -1,0 +1,59 @@
+Orig Schema:
+------------
+{"player":{"pos":{"y":200,"x":100},"health":50,"name":"zombieKilr","level":25},"backpack":{"items":[["p1",{"CanHydrate":"false","CanHeal":"true","CanKill":"false","quantity":10}],["p5",{"CanHydrate":"false","CanHeal":"false","CanKill":"true","quantity":1}],["p7",{"CanHydrate":"false","CanHeal":"false","CanKill":"true","quantity":1}]],"slots":3,"name":"Small Backpack"},"props":{"p2":"Cola","p3":"Ammo","p1":"Bandaid","p6":"Baseball Bat","p7":"Mace","p4":"Water","p5":"Knife"}}
+
+
+
+Carrying: Bandaid
+Carrying: Knife
+Carrying: Mace
+
+Old CanHeal: False
+New CanHeal: True
+
+
+Old Health: 50
+New Health: 100
+
+Player: zombieKilr
+Location: 100, 200
+
+
+
+Updated Schema reflecting changes:
+----------------------------------
+{"player":{"pos":{"y":200,"x":100},"health":100,"name":"zombieKilr","level":25},"backpack":{"items":[["p1",{"CanHydrate":"false","CanHeal":"true","CanKill":"false","quantity":10}],["p5",{"CanHydrate":"false","CanHeal":"true","CanKill":"true","quantity":1}],["p7",{"CanHydrate":"false","CanHeal":"false","CanKill":"true","quantity":1}]],"slots":3,"name":"Small Backpack"},"props":{"p2":"Cola","p3":"Ammo","p1":"Bandaid","p6":"Baseball Bat","p7":"Mace","p4":"Water","p5":"Knife"}}
+
+
+
+Using dump to get an overview of hiearchy:
+----------------------------------------
+backpack.items[0] = "p1"
+backpack.items[1].CanHeal = True
+backpack.items[1].CanHydrate = False
+backpack.items[1].CanKill = False
+backpack.items[1].quantity = 10
+backpack.items[0] = "p5"
+backpack.items[1].CanHeal = True
+backpack.items[1].CanHydrate = False
+backpack.items[1].CanKill = True
+backpack.items[1].quantity = 1
+backpack.items[0] = "p7"
+backpack.items[1].CanHeal = False
+backpack.items[1].CanHydrate = False
+backpack.items[1].CanKill = True
+backpack.items[1].quantity = 1
+backpack.name = "Small Backpack"
+backpack.slots = 3
+player.health = 100
+player.level = 25
+player.name = "zombieKilr"
+player.pos.x = 100
+player.pos.y = 200
+props.p1 = "Bandaid"
+props.p2 = "Cola"
+props.p3 = "Ammo"
+props.p4 = "Water"
+props.p5 = "Knife"
+props.p6 = "Baseball Bat"
+props.p7 = "Mace"
