@@ -17,7 +17,7 @@ import sys, json
 #
 # Types currently supported for conversion
 #
-from types import BooleanType, IntType, FloatType, StringType, UnicodeType, ListType, DictType
+from types import BooleanType, IntType, LongType, FloatType, StringType, UnicodeType, ListType, DictType, NoneType
 
 class PySONException(Exception):
     """Exception class for PySON"""
@@ -73,7 +73,7 @@ class PySON(object):
         #
         # Object types that are handled
         #
-        self.__my_supported_types = [self.__my_type, BooleanType, IntType, FloatType, StringType, DictType, ListType, UnicodeType]
+        self.__my_supported_types = [self.__my_type, BooleanType, IntType, LongType, FloatType, StringType, DictType, ListType, UnicodeType, NoneType]
 
         #
         # member name to object type mapping
@@ -137,7 +137,7 @@ class PySON(object):
         
         def info(k, v, hint=''):
 
-            t = self._type(v)
+            t = self._type(v, k)
             
             if t is self.__my_type:
                 v.dump(logger)
@@ -167,11 +167,10 @@ class PySON(object):
             elif t is ListType:
                 return '[' + ",".join([ append(v[i]) for i in range(0, len(v)) ]) + ']'
             elif t is BooleanType:
-                if v == False: return '"false"'
-                else: return '"true"'
-            elif t is BooleanType:
-                if v: return '\"true\"'
-                else: return '\"false\"'
+                if v: return '"true"'
+                else: return '"false"'
+            elif t is NoneType:
+                v = "null"
             elif t in [UnicodeType, StringType]:
                 return '\"%s\"' % v
             
@@ -213,17 +212,17 @@ class PySON(object):
     def __repr__(self):
         return self.toJSON()
 
-    def _type(self, v):
+    def _type(self, v, k = ""):
         t = type(v)
         if not t in self.__my_supported_types:
-            raise ValueError, "Unsupported type %s (%s)" % (t, v)
+            raise PySONException("Unsupported type %s (%s-%s)" % (t, `k`, `v`))
         return t
 
     def __load(self, d):
 
         def fromTyped(k, v, index = None):
         
-            entryType = self._type(v)
+            entryType = self._type(v, k)
         
             if entryType is DictType:
                 key = k
@@ -241,7 +240,7 @@ class PySON(object):
         
         for k, v in d.items():
             self.__dict__[k] = fromTyped(k, v)
-            t = self._type(v)
+            t = self._type(v, k)
             self.__my_property_types[k] = t
             self.__my_property_names.append(k)
 
